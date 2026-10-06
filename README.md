@@ -27,10 +27,22 @@ OKE Basic cluster · flannel overlay
 ├── modules/
 │   ├── network/          VCN, gateways, route tables, subnets and security lists
 │   ├── oke-cluster/      OKE control plane
-│   └── oke-node-pool/    node pool with automatic image selection
+│   ├── oke-node-pool/    node pool with automatic image selection
+│   ├── oci-vault/        OCI Vault + dynamic group and policy for the nodes
+│   ├── traefik/          ingress controller on an OCI flexible load balancer
+│   ├── cert-manager/     certificates and Let's Encrypt ClusterIssuers
+│   ├── metrics-server/   resource metrics for kubectl top and HPA
+│   ├── external-secrets/ External Secrets Operator + OCI Vault ClusterSecretStore
+│   ├── argocd/           GitOps
+│   ├── argo-rollouts/    canary and blue-green deployments
+│   ├── argo-workflows/   workflow engine
+│   ├── cloudnative-pg/   PostgreSQL operator
+│   ├── keycloak/         identity provider on CloudNativePG
+│   └── monitoring/       Prometheus, Alertmanager and Grafana
 ├── tests/                root module tests (terraform test, mocked provider)
 ├── examples/
-│   └── always-free/      ready-to-apply configuration with provider and tfvars
+│   ├── always-free/      infrastructure: network, cluster, node pool, vault
+│   └── platform/         add-ons installed on the cluster with helm
 ├── docs/                 architecture, operations, Always Free limits, troubleshooting
 └── Makefile              fmt, validate, lint, docs, security, plan/apply
 ```
@@ -48,6 +60,8 @@ make apply
 make kubeconfig
 kubectl get nodes
 ```
+
+Then install the add-ons with [examples/platform](examples/platform).
 
 Requirements: Terraform >= 1.7, the [OCI CLI](https://docs.oracle.com/iaas/Content/API/SDKDocs/cliinstall.htm)
 with an API key profile (`oci setup config`) and `kubectl`. The tenancy must be on

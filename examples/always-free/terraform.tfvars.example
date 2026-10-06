@@ -7,3 +7,14 @@ cluster_name = "oke"
 api_allowed_cidrs = ["203.0.113.10/32"]
 
 ssh_public_key = null
+
+node_pools = {
+  arm = {
+    size          = 2
+    ocpus         = 2
+    memory_in_gbs = 12
+  }
+}
+
+tenancy_id    = "ocid1.tenancy.oc1..replace-me"
+vault_enabled = true

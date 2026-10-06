@@ -25,6 +25,7 @@ kubectl get nodes
 | Name | Source | Version |
 | ---- | ------ | ------- |
 | oke | ../.. | n/a |
+| vault | ../../modules/oci-vault | n/a |
 
 ## Inputs
 
@@ -35,8 +36,11 @@ kubectl get nodes
 | region | OCI region identifier, e.g. sa-saopaulo-1. | `string` | n/a | yes |
 | cluster\_name | Name of the cluster. | `string` | `"oke"` | no |
 | kubernetes\_version | Kubernetes version such as v1.33.1. Null picks the newest one. | `string` | `null` | no |
+| node\_pools | Node pools keyed by name suffix. The default fills the Always Free A1 allowance of 4 OCPU and 24 GB. | ```map(object({ size = optional(number, 2) shape = optional(string, "VM.Standard.A1.Flex") ocpus = optional(number, 2) memory_in_gbs = optional(number, 12) }))``` | ```{ "arm": {} }``` | no |
 | oci\_profile | Profile from ~/.oci/config used to authenticate. | `string` | `"DEFAULT"` | no |
 | ssh\_public\_key | SSH public key installed on the nodes. | `string` | `null` | no |
+| tenancy\_id | OCID of the tenancy. Required when vault\_enabled is true. | `string` | `null` | no |
+| vault\_enabled | Whether an OCI Vault is created and the nodes are allowed to read its secrets, for External Secrets Operator. | `bool` | `false` | no |
 
 ## Outputs
 
@@ -47,4 +51,6 @@ kubectl get nodes
 | kubeconfig\_command | Command that writes the cluster credentials to ~/.kube/config. |
 | kubernetes\_version | Kubernetes version of the control plane. |
 | node\_pools | OCID and nodes of every node pool. |
+| vault\_id | OCID of the OCI Vault, null when vault\_enabled is false. |
+| vault\_key\_id | OCID of the master encryption key, null when vault\_enabled is false. |
 <!-- END_TF_DOCS -->

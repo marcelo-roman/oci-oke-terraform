@@ -21,7 +21,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        dir: [., modules/network, modules/oke-cluster, modules/oke-node-pool, examples/always-free]
+        dir:
+          - .
+          - modules/network
+          - modules/oke-cluster
+          - modules/oke-node-pool
+          - modules/oci-vault
+          - modules/traefik
+          - modules/cert-manager
+          - modules/metrics-server
+          - modules/cloudnative-pg
+          - modules/external-secrets
+          - modules/argocd
+          - modules/argo-rollouts
+          - modules/argo-workflows
+          - modules/keycloak
+          - modules/monitoring
+          - examples/always-free
+          - examples/platform
     steps:
       - uses: actions/checkout@v7
       - uses: hashicorp/setup-terraform@v4

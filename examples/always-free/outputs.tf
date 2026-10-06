@@ -22,3 +22,13 @@ output "kubeconfig_command" {
   description = "Command that writes the cluster credentials to ~/.kube/config."
   value       = "oci ce cluster create-kubeconfig --cluster-id ${module.oke.cluster_id} --region ${var.region} --profile ${var.oci_profile} --file $HOME/.kube/config --token-version 2.0.0 --kube-endpoint PUBLIC_ENDPOINT"
 }
+
+output "vault_id" {
+  description = "OCID of the OCI Vault, null when vault_enabled is false."
+  value       = try(module.vault[0].vault_id, null)
+}
+
+output "vault_key_id" {
+  description = "OCID of the master encryption key, null when vault_enabled is false."
+  value       = try(module.vault[0].key_id, null)
+}

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: cluster-issuers
+description: Let's Encrypt ClusterIssuers solved through HTTP-01 on an IngressClass.
+type: application
+version: 0.1.0

@@ -1,0 +1,15 @@
+region      = "sa-saopaulo-1"
+oci_profile = "DEFAULT"
+cluster_id  = "ocid1.cluster.oc1.sa-saopaulo-1.replace-me"
+
+domain         = "lab.example.com"
+acme_email     = "you@example.com"
+cluster_issuer = "letsencrypt-staging"
+
+oci_vault_id = "ocid1.vault.oc1.sa-saopaulo-1.replace-me"
+
+addons = {
+  argo_workflows = true
+  keycloak       = true
+  monitoring     = true
+}

@@ -63,14 +63,15 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
+    env:
+      TERRAFORM_DOCS_VERSION: v0.24.0
     steps:
       - uses: actions/checkout@v7
-      - uses: terraform-docs/gh-actions@v1
-        with:
-          find-dir: .
-          config-file: .terraform-docs.yml
-          output-method: inject
-          fail-on-diff: true
+      - run: |
+          curl -sSLo terraform-docs.tar.gz "https://github.com/terraform-docs/terraform-docs/releases/download/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-linux-amd64.tar.gz"
+          sudo tar -xzf terraform-docs.tar.gz -C /usr/local/bin terraform-docs
+          rm terraform-docs.tar.gz
+      - run: make docs-check
 
   security:
     runs-on: ubuntu-latest
